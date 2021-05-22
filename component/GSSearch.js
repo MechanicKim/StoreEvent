@@ -33,7 +33,10 @@ const Text = styled.Text`
 export default function GSSearch(props) {
   return (
     <Wrap>
-      <Input onChangeText={props.onChangeKeyword} placeholder="상품명으로 검색" />
+      <Input
+        onChangeText={props.onChangeKeyword}
+        placeholder="상품명으로 검색"
+      />
       <Button onPress={props.search}>
         <Text>찾기</Text>
       </Button>

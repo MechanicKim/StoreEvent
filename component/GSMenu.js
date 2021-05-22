@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { css } from 'styled-components/native';
+import styled, {css} from 'styled-components/native';
 
 const Menu = styled.View`
   flex-direction: row;
@@ -30,21 +30,24 @@ const Text = styled.Text`
 `;
 
 const menuItems = [
-  { code: 'ONE_TO_ONE', name: '1+1' },
-  { code: 'TWO_TO_ONE', name: '2+1' },
-  { code: 'GIFT', name: '덤증정' }
+  {code: 'ONE_TO_ONE', name: '1+1'},
+  {code: 'TWO_TO_ONE', name: '2+1'},
+  {code: 'GIFT', name: '덤증정'},
 ];
 
 export default function GSMenu(props) {
-  const { type, select } = props;
+  const {type, select} = props;
 
   return (
     <Menu>
-    {menuItems.map((item, index) => (
-      <Item key={index} selected={item.code === type} onPress={() => select(item)}>
-        <Text selected={item.code === type}>{item.name}</Text>
-      </Item>
-    ))}
+      {menuItems.map((item, index) => (
+        <Item
+          key={index}
+          selected={item.code === type}
+          onPress={() => select(item)}>
+          <Text selected={item.code === type}>{item.name}</Text>
+        </Item>
+      ))}
     </Menu>
   );
 }

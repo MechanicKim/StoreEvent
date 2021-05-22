@@ -6,14 +6,14 @@
  * @flow
  */
 
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 
 import Main from './page/Main';
 import GS from './page/GS';
 import Store from './page/Store';
 import Star from './page/Star';
 
-import { NativeRouter, Route } from "react-router-native";
+import {NativeRouter, Route} from 'react-router-native';
 
 export default class App extends Component {
   render() {
@@ -26,4 +26,4 @@ export default class App extends Component {
       </NativeRouter>
     );
   }
-};
+}

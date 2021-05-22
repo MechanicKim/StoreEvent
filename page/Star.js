@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import styled, { css } from 'styled-components/native';
-import { Dimensions, Linking, StatusBar } from 'react-native';
+import React, {Component} from 'react';
+import styled from 'styled-components/native';
+import {Linking, StatusBar} from 'react-native';
 
-import { BackButton } from 'react-router-native';
+import {BackButton} from 'react-router-native';
 
 import StarCoupons from '../component/StarCoupons';
 import StarEmpty from '../component/StarEmpty';
@@ -23,12 +23,12 @@ export default class Star extends Component {
 
     this.state = {
       popOn: false,
-      coupon: null
+      coupon: null,
     };
   }
 
   render() {
-    const { popOn, coupon } = this.state;
+    const {popOn, coupon} = this.state;
 
     return (
       <Page>
@@ -44,11 +44,12 @@ export default class Star extends Component {
 
   toggle = (popOn, coupon) => {
     this.setState({
-      popOn, coupon
+      popOn,
+      coupon,
     });
   };
 
   openKakao = () => {
     Linking.openURL('https://pf.kakao.com/_edxbxfT/friend');
   };
-};
+}

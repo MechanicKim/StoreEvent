@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import styled from 'styled-components/native';
-import { StatusBar } from 'react-native';
+import {StatusBar} from 'react-native';
 
 import MainView from '../component/MainView';
 import MainMenu from '../component/MainMenu';
 
 const Page = styled.SafeAreaView`
-  flex: 1
+  flex: 1;
 `;
 
 export default class Main extends Component {
@@ -23,4 +23,4 @@ export default class Main extends Component {
       </Page>
     );
   }
-};
+}

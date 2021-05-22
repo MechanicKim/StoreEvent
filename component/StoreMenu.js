@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import styled, { css } from 'styled-components/native';
+import React from 'react';
+import styled, {css} from 'styled-components/native';
 
 const Wrap = styled.View`
   padding-vertical: 5;
@@ -38,28 +38,32 @@ const menu = {
     {code: 'CU', name: 'CU'},
     {code: '미니스톱', name: '미니스톱'},
     {code: '세븐일레븐', name: '세븐일레븐'},
-    {code: '이마트24', name: '이마트24'}
+    {code: '이마트24', name: '이마트24'},
   ],
   category: [
     {code: '음료', name: '음료'},
     {code: '아이스크림', name: '아이스크림'},
     {code: '과자', name: '과자'},
     {code: '간편식사', name: '간편식사'},
-    {code: '생활용품', name: '생활용품'}
+    {code: '생활용품', name: '생활용품'},
   ],
   type: [
     {code: '11', name: '1+1'},
     {code: '21', name: '2+1'},
     {code: '31', name: '3+1'},
     {code: '증정', name: '증정'},
-    {code: '할인', name: '할인'}
-  ]
+    {code: '할인', name: '할인'},
+  ],
 };
 
 export default function GSMenu(props) {
   const {
-    store, category, type,
-    selectStore, selectCategory, selectType
+    store,
+    category,
+    type,
+    selectStore,
+    selectCategory,
+    selectType,
   } = props;
 
   let color;
@@ -76,28 +80,37 @@ export default function GSMenu(props) {
   return (
     <Wrap>
       <Menu>
-      {menu.store.map((item, index) => (
-        <Item key={index} selected={item.code === store} color={color}
-              onPress={() => selectStore(item.code)}>
-          <Text selected={item.code === store}>{item.name}</Text>
-        </Item>
-      ))}
+        {menu.store.map((item, index) => (
+          <Item
+            key={index}
+            selected={item.code === store}
+            color={color}
+            onPress={() => selectStore(item.code)}>
+            <Text selected={item.code === store}>{item.name}</Text>
+          </Item>
+        ))}
       </Menu>
       <Menu>
-      {menu.category.map((item, index) => (
-        <Item key={index} selected={item.code === category} color={color}
-              onPress={() => selectCategory(item.code)}>
-          <Text selected={item.code === category}>{item.name}</Text>
-        </Item>
-      ))}
+        {menu.category.map((item, index) => (
+          <Item
+            key={index}
+            selected={item.code === category}
+            color={color}
+            onPress={() => selectCategory(item.code)}>
+            <Text selected={item.code === category}>{item.name}</Text>
+          </Item>
+        ))}
       </Menu>
       <Menu>
-      {menu.type.map((item, index) => (
-        <Item key={index} selected={item.code === type} color={color}
-              onPress={() => selectType(item.code)}>
-          <Text selected={item.code === type}>{item.name}</Text>
-        </Item>
-      ))}
+        {menu.type.map((item, index) => (
+          <Item
+            key={index}
+            selected={item.code === type}
+            color={color}
+            onPress={() => selectType(item.code)}>
+            <Text selected={item.code === type}>{item.name}</Text>
+          </Item>
+        ))}
       </Menu>
     </Wrap>
   );

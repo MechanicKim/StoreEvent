@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { css } from 'styled-components/native';
+import styled, {css} from 'styled-components/native';
 
 const Wrap = styled.View`
   flex-direction: row;
@@ -26,12 +26,12 @@ const Text = styled.Text`
   font-size: 15;
   color: #000000;
   ${props => css`
-    font-weight: ${props.bold ? 'bold' : 'normal'}
+    font-weight: ${props.bold ? 'bold' : 'normal'};
   `}
 `;
 
 export default function Item(props) {
-  const { item } = props;
+  const {item} = props;
 
   return (
     <Wrap>
