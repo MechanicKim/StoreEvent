@@ -4,7 +4,7 @@ import {Alert, StatusBar} from 'react-native';
 
 import {BackButton} from 'react-router-native';
 import StoreItems from '../component/StoreItems';
-import StoreMenu from '../component/StoreMenu';
+import StoreMenu, {menu} from '../component/StoreMenu';
 
 import HTMLParser from 'fast-html-parser';
 
@@ -20,11 +20,12 @@ const Display = 20;
 export default class Main extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       items: [],
       page: 0,
       moreOn: false,
-      store: 'CU',
+      store: menu.store[props.match.params.idx].code,
       category: '음료',
       type: '11',
     };

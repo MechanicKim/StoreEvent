@@ -33,7 +33,7 @@ const Text = styled.Text`
   `}
 `;
 
-const menu = {
+export const menu = {
   store: [
     {code: 'CU', name: 'CU'},
     {code: '미니스톱', name: '미니스톱'},
