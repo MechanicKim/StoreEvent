@@ -21,26 +21,23 @@ const Text = styled.Text`
   font-weight: bold;
 `;
 
-export default function MainMenu(props) {
+export default function MainMenu({linkTo}) {
   return (
     <>
       <Menu>
-        <Item
-          color="#3c78d8"
-          activeOpacity={0.9}
-          onPress={() => props.linkTo('/gs')}>
+        <Item color="#3c78d8" activeOpacity={0.9} onPress={() => linkTo('/gs')}>
           <Text>GS25</Text>
         </Item>
         <Item
           color="#8e7cc3"
           activeOpacity={0.9}
-          onPress={() => props.linkTo('/store/0')}>
+          onPress={() => linkTo('/store/0')}>
           <Text>CU</Text>
         </Item>
         <Item
           color="#ffd966"
           activeOpacity={0.9}
-          onPress={() => props.linkTo('/store/1')}>
+          onPress={() => linkTo('/store/1')}>
           <Text>미니스톱</Text>
         </Item>
       </Menu>
@@ -48,19 +45,19 @@ export default function MainMenu(props) {
         <Item
           color="#e06666"
           activeOpacity={0.9}
-          onPress={() => props.linkTo('/store/2')}>
+          onPress={() => linkTo('/store/2')}>
           <Text>세븐일레븐</Text>
         </Item>
         <Item
           color="#434343"
           activeOpacity={0.9}
-          onPress={() => props.linkTo('/store/3')}>
+          onPress={() => linkTo('/store/3')}>
           <Text>이마트24</Text>
         </Item>
         <Item
           color="#00704A"
           activeOpacity={0.9}
-          onPress={() => props.linkTo('/star')}>
+          onPress={() => linkTo('/star')}>
           <Text>스타벅스</Text>
           <Text>RTD</Text>
         </Item>

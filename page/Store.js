@@ -6,15 +6,12 @@ import {BackButton} from 'react-router-native';
 import StoreItems from '../component/StoreItems';
 import StoreMenu, {menu} from '../component/StoreMenu';
 
-import HTMLParser from 'fast-html-parser';
+import {requestStoreEvent, parseStoreHTML} from '../util/store';
 
 const Page = styled.SafeAreaView`
   flex: 1;
   background-color: #ffffff;
 `;
-
-const URL =
-  'https://search.naver.com/p/csearch/content/nqapirender.nhn?pkid=465&where=m';
 const Display = 20;
 
 export default class Main extends Component {
@@ -36,60 +33,22 @@ export default class Main extends Component {
     this.requestEvent(page, store, category, type);
   }
 
-  requestEvent = (page, store, category, type, more) => {
-    let param = `&start=${page}&display=${Display}&u1=${store}&u2=${category}&u3=${type}&u4=&u5=&u6=&u9=page`;
-    fetch(URL + param, {
-      method: 'GET',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-    })
-      .then(response => response.json())
-      .then(json => {
-        const itemsHTML = HTMLParser.parse(json.current.html).querySelectorAll(
-          'li',
-        );
-        let items = itemsHTML.map(item => {
-          let name = item.querySelector('.item_info .item_name .name_text')
-            .text;
-          let price = item.querySelector('.item_info .item_price').text;
-          if (type.code === '증정') {
-            const nameSet = name.split('(' + type.code + ')');
-            name = nameSet[0] + '\r\n[증정]' + nameSet[1];
-          }
-          if (type.code === '할인') {
-            const priceSet = price.split('원');
-            price = priceSet[1] + '원 -> ' + priceSet[0] + '원';
-          }
+  requestEvent = async (page, store, category, type, more = false) => {
+    try {
+      const html = await requestStoreEvent(page, store, category, type);
+      const items = parseStoreHTML(html);
+      if (!items.length) {
+        throw new Error('상품이 더 이상 존재하지 않습니다.');
+      }
 
-          return {
-            img: item.querySelector('.thumb img').attributes.src,
-            name,
-            price: price,
-          };
-        });
-
-        if (!items.length) {
-          Alert.alert('알림', '상품이 더 이상 존재하지 않습니다.', [
-            {text: '확인'},
-          ]);
-          return;
-        }
-
-        const newItems = more ? this.state.items.concat(items) : items;
-        this.setState({
-          items: newItems,
-          moreOn: newItems.length % Display === 0,
-        });
-      })
-      .catch(error => {
-        Alert.alert(
-          '알림',
-          '상품 목록을 가져오는데 실패했습니다. 네트워크 상태를 확인해 주세요.',
-          [{text: '확인'}],
-        );
+      const newItems = more ? this.state.items.concat(items) : items;
+      this.setState({
+        items: newItems,
+        moreOn: newItems.length % Display === 0,
       });
+    } catch (error) {
+      Alert.alert(error.name, error.message, [{text: '확인'}]);
+    }
   };
 
   render() {
