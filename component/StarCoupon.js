@@ -21,7 +21,7 @@ const Coupon = styled.Image`
 export default function StarCoupon(props) {
   return (
     <Pop activeOpacity={0.9} onPress={() => props.toggle(false, null)}>
-      <Coupon source={props.coupon} />
+      <Coupon source={props.coupon} accessibilityLabel="Coupon" />
     </Pop>
   );
 }

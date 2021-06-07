@@ -8,16 +8,15 @@ const Wrap = styled.View`
   background-color: #eeeeee;
 `;
 
-const Menu = styled.View`
+const Menu = styled.ScrollView`
   flex-direction: row;
   padding-vertical: 5;
-  padding-horizontal: 10;
 `;
 
 const Item = styled.TouchableOpacity`
-  padding-vertical: 10;
-  padding-horizontal: 10;
-  margin-horizontal: 3;
+  width: 80;
+  padding-vertical: 11;
+  margin-right: 10;
   justify-content: center;
   align-items: center;
   border-radius: 10;
@@ -27,10 +26,14 @@ const Item = styled.TouchableOpacity`
 `;
 
 const Text = styled.Text`
-  font-size: 15;
+  font-size: 14;
   ${props => css`
     color: ${props.selected ? '#ffffff' : '#212121'};
   `}
+`;
+
+const Pad = styled.View`
+  width: 10;
 `;
 
 export const menu = {
@@ -44,7 +47,7 @@ export const menu = {
     {code: '음료', name: '음료'},
     {code: '아이스크림', name: '아이스크림'},
     {code: '과자', name: '과자'},
-    {code: '간편식사', name: '간편식사'},
+    {code: '간편식사', name: '간편식'},
     {code: '생활용품', name: '생활용품'},
   ],
   type: [
@@ -56,16 +59,14 @@ export const menu = {
   ],
 };
 
-export default function GSMenu(props) {
-  const {
-    store,
-    category,
-    type,
-    selectStore,
-    selectCategory,
-    selectType,
-  } = props;
-
+export default function GSMenu({
+  store,
+  category,
+  type,
+  selectStore,
+  selectCategory,
+  selectType,
+}) {
   let color;
   if (store === 'CU') {
     color = '#8e7cc3';
@@ -79,7 +80,8 @@ export default function GSMenu(props) {
 
   return (
     <Wrap>
-      <Menu>
+      <Menu horizontal={true} showsHorizontalScrollIndicator={false}>
+        <Pad />
         {menu.store.map((item, index) => (
           <Item
             key={index}
@@ -90,7 +92,8 @@ export default function GSMenu(props) {
           </Item>
         ))}
       </Menu>
-      <Menu>
+      <Menu horizontal={true} showsHorizontalScrollIndicator={false}>
+        <Pad />
         {menu.category.map((item, index) => (
           <Item
             key={index}
@@ -101,7 +104,8 @@ export default function GSMenu(props) {
           </Item>
         ))}
       </Menu>
-      <Menu>
+      <Menu horizontal={true} showsHorizontalScrollIndicator={false}>
+        <Pad />
         {menu.type.map((item, index) => (
           <Item
             key={index}

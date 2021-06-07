@@ -3,6 +3,7 @@ import styled, {css} from 'styled-components/native';
 
 const Menu = styled.View`
   flex-direction: row;
+  justify-content: center;
   padding-vertical: 10;
   padding-horizontal: 10;
   background-color: #eeeeee;
@@ -11,8 +12,8 @@ const Menu = styled.View`
 `;
 
 const Item = styled.TouchableOpacity`
-  padding-vertical: 10;
-  padding-horizontal: 10;
+  padding-vertical: 12;
+  width: 80;
   margin-horizontal: 3;
   justify-content: center;
   align-items: center;

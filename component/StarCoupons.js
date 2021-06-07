@@ -29,7 +29,7 @@ export default function StarCoupons(props) {
             key={index}
             activeOpacity={0.9}
             onPress={() => props.toggle(true, coupon)}>
-            <Coupon source={coupon} />
+            <Coupon source={coupon} accessibilityLabel={`Coupon${index}`} />
           </Wrap>
         );
       })}

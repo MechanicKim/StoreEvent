@@ -11,7 +11,7 @@ const Wrap = styled.View`
 
 const Input = styled.TextInput`
   flex: 1;
-  padding-horizontal: 10;
+  padding-horizontal: 12;
   font-size: 17;
   background-color: #fafafa;
   border-radius: 5;
