@@ -47,7 +47,7 @@ export default class Main extends Component {
         moreOn: newItems.length % Display === 0,
       });
     } catch (error) {
-      Alert.alert(error.name, error.message, [{text: '확인'}]);
+      Alert.alert('', error.message, [{text: '확인'}]);
     }
   };
 

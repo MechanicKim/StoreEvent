@@ -34,9 +34,8 @@ export default class Main extends Component {
     try {
       const json = await requestGSEvent(pageNum, type, keyword);
       const items = parseGSJSON(json);
-      if (!items.length) {
-        Error('상품이 더 이상 존재하지 않습니다.');
-        return;
+      if (items.length === 0) {
+        throw new Error('상품이 더 이상 존재하지 않습니다.');
       }
 
       if (more) {
@@ -45,7 +44,7 @@ export default class Main extends Component {
         this.setState({items});
       }
     } catch (error) {
-      Alert.alert(error.name, error.message, [{text: '확인'}]);
+      Alert.alert('', error.message, [{text: '확인'}]);
     }
   };
 
