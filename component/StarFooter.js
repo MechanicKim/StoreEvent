@@ -14,9 +14,9 @@ const Text = styled.Text`
   font-weight: bold;
 `;
 
-export default function StarFooter(props) {
+export default function StarFooter({openKakao}) {
   return (
-    <Button activeOpacity={0.9} onPress={props.openKakao}>
+    <Button activeOpacity={0.9} onPress={openKakao}>
       <Text>카카오톡 채널</Text>
     </Button>
   );

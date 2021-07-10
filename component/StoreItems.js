@@ -16,13 +16,13 @@ const Text = styled.Text`
   `}
 `;
 
-export default function GSItems(props) {
+export default function GSItems({items, more}) {
   return (
     <Scroll>
-      {props.items.map((item, index) => (
+      {items.map((item, index) => (
         <Item key={index} Text={Text} item={item} />
       ))}
-      <More more={props.more} />
+      <More more={more} />
     </Scroll>
   );
 }

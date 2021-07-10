@@ -36,16 +36,14 @@ const menuItems = [
   {code: 'GIFT', name: '덤증정'},
 ];
 
-export default function GSMenu(props) {
-  const {type, select} = props;
-
+export default function GSMenu({type, select}) {
   return (
     <Menu>
       {menuItems.map((item, index) => (
         <Item
           key={index}
           selected={item.code === type}
-          onPress={() => select(item)}>
+          onPress={() => select(item.code)}>
           <Text selected={item.code === type}>{item.name}</Text>
         </Item>
       ))}

@@ -18,10 +18,10 @@ const Coupon = styled.Image`
   height: ${Dimensions.get('window').width};
 `;
 
-export default function StarCoupon(props) {
+export default function StarCoupon({toggle, coupon}) {
   return (
-    <Pop activeOpacity={0.9} onPress={() => props.toggle(false, null)}>
-      <Coupon source={props.coupon} accessibilityLabel="Coupon" />
+    <Pop activeOpacity={0.9} onPress={() => toggle(null)}>
+      <Coupon source={coupon} accessibilityLabel="Coupon" />
     </Pop>
   );
 }

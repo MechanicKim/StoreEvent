@@ -20,15 +20,12 @@ const images = [
   require('../image/coupon4.jpg'),
 ];
 
-export default function StarCoupons(props) {
+export default function StarCoupons({toggle}) {
   return (
     <Scroll>
       {images.map((coupon, index) => {
         return (
-          <Wrap
-            key={index}
-            activeOpacity={0.9}
-            onPress={() => props.toggle(true, coupon)}>
+          <Wrap key={index} activeOpacity={0.9} onPress={() => toggle(coupon)}>
             <Coupon source={coupon} accessibilityLabel={`Coupon${index}`} />
           </Wrap>
         );

@@ -11,10 +11,10 @@ const Text = styled.Text`
   font-size: 18px;
 `;
 
-export default function StarEmpty(props) {
+export default function StarEmpty({month}) {
   return (
     <View>
-      <Text>{props.month}월 할인쿠폰을 기다려주세요.</Text>
+      <Text>{month}월 할인쿠폰을 기다려주세요.</Text>
     </View>
   );
 }

@@ -1,4 +1,5 @@
-import React, {Component} from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, {useState, useEffect} from 'react';
 import styled from 'styled-components/native';
 import {Alert, StatusBar} from 'react-native';
 
@@ -14,85 +15,79 @@ const Page = styled.SafeAreaView`
 `;
 const Display = 20;
 
-export default class Main extends Component {
-  constructor(props) {
-    super(props);
+export default function Main({match}) {
+  const [items, setItems] = useState([]);
+  const [query, setQuery] = useState({
+    page: 0,
+    store: menu.store[match.params.idx].code,
+    category: '음료',
+    type: '11',
+  });
 
-    this.state = {
-      items: [],
-      page: 0,
-      moreOn: false,
-      store: menu.store[props.match.params.idx].code,
-      category: '음료',
-      type: '11',
-    };
-  }
+  useEffect(() => {
+    requestEvent();
+  }, [query]);
 
-  componentDidMount() {
-    const {page, store, category, type} = this.state;
-    this.requestEvent(page, store, category, type);
-  }
-
-  requestEvent = async (page, store, category, type, more = false) => {
+  async function requestEvent() {
     try {
-      const html = await requestStoreEvent(page, store, category, type);
-      const items = parseStoreHTML(html);
-      if (!items.length) {
+      const html = await requestStoreEvent(query);
+      const newItems = parseStoreHTML(html);
+      if (!newItems.length) {
         throw new Error('상품이 더 이상 존재하지 않습니다.');
       }
 
-      const newItems = more ? this.state.items.concat(items) : items;
-      this.setState({
-        items: newItems,
-        moreOn: newItems.length % Display === 0,
-      });
+      if (query.page > 0) {
+        setItems([...items, ...newItems]);
+      } else {
+        setItems(newItems);
+      }
     } catch (error) {
       Alert.alert('', error.message, [{text: '확인'}]);
     }
-  };
-
-  render() {
-    const {items, store, category, type} = this.state;
-
-    return (
-      <Page>
-        <StatusBar barStyle="default" />
-        <BackButton />
-        <StoreItems items={items} more={this.more} />
-        <StoreMenu
-          store={store}
-          category={category}
-          type={type}
-          selectStore={this.selectStore}
-          selectCategory={this.selectCategory}
-          selectType={this.selectType}
-        />
-      </Page>
-    );
   }
 
-  selectStore = store => {
-    const {category, type} = this.state;
-    this.requestEvent(0, store, category, type);
-    this.setState({items: [], page: 0, store});
-  };
+  function selectStore(store) {
+    setQuery({
+      ...query,
+      page: 0,
+      store,
+    });
+  }
 
-  selectCategory = category => {
-    const {store, type} = this.state;
-    this.requestEvent(0, store, category, type);
-    this.setState({items: [], page: 0, category});
-  };
+  function selectCategory(category) {
+    setQuery({
+      ...query,
+      page: 0,
+      category,
+    });
+  }
 
-  selectType = type => {
-    const {store, category} = this.state;
-    this.requestEvent(0, store, category, type);
-    this.setState({items: [], page: 0, type});
-  };
+  function selectType(type) {
+    setQuery({
+      ...query,
+      page: 0,
+      type,
+    });
+  }
 
-  more = () => {
-    const {page, store, category, type} = this.state;
-    let nextPage = page + Display;
-    this.requestEvent(nextPage, store, category, type, true);
-    this.setState({page: nextPage});
-  };
+  function more() {
+    setQuery({
+      ...query,
+      page: query.page + Display,
+    });
+  }
+
+  return (
+    <Page>
+      <StatusBar barStyle="default" />
+      <BackButton />
+      <StoreItems items={items} more={more} />
+      <StoreMenu
+        {...query}
+        selectStore={selectStore}
+        selectCategory={selectCategory}
+        selectType={selectType}
+      />
+    </Page>
+  );
 }

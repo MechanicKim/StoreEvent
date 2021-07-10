@@ -30,9 +30,7 @@ const Text = styled.Text`
   `}
 `;
 
-export default function Item(props) {
-  const {item} = props;
-
+export default function Item({item}) {
   return (
     <Wrap>
       <Image source={{uri: item.img}} />

@@ -12,9 +12,9 @@ const Text = styled.Text`
   text-align: center;
 `;
 
-export default function More(props) {
+export default function More({more}) {
   return (
-    <Button onPress={props.more}>
+    <Button onPress={more}>
       <Text>더보기</Text>
     </Button>
   );

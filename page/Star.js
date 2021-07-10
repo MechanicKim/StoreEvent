@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components/native';
 import {Linking, StatusBar} from 'react-native';
 
@@ -17,39 +17,27 @@ const Page = styled.SafeAreaView`
 const couponMonth = 6;
 const month = new Date().getMonth() + 1;
 
-export default class Star extends Component {
-  constructor(props) {
-    super(props);
+export default function Star() {
+  const [popOn, setPopOn] = useState(false);
+  const [coupon, setCoupon] = useState(null);
 
-    this.state = {
-      popOn: false,
-      coupon: null,
-    };
+  function toggle(selectedCoupon) {
+    setCoupon(selectedCoupon);
+    setPopOn(!popOn);
   }
 
-  render() {
-    const {popOn, coupon} = this.state;
-
-    return (
-      <Page>
-        <StatusBar barStyle="default" />
-        <BackButton />
-        {couponMonth === month && <StarCoupons toggle={this.toggle} />}
-        {couponMonth !== month && <StarEmpty month={month} />}
-        <StarFooter openKakao={this.openKakao} />
-        {popOn && <StarCoupon coupon={coupon} toggle={this.toggle} />}
-      </Page>
-    );
-  }
-
-  toggle = (popOn, coupon) => {
-    this.setState({
-      popOn,
-      coupon,
-    });
-  };
-
-  openKakao = () => {
+  function openKakao() {
     Linking.openURL('https://pf.kakao.com/_edxbxfT/friend');
-  };
+  }
+
+  return (
+    <Page>
+      <StatusBar barStyle="default" />
+      <BackButton />
+      {couponMonth === month && <StarCoupons toggle={toggle} />}
+      {couponMonth !== month && <StarEmpty month={month} />}
+      <StarFooter openKakao={openKakao} />
+      {popOn && <StarCoupon coupon={coupon} toggle={toggle} />}
+    </Page>
+  );
 }

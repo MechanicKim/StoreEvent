@@ -1,4 +1,5 @@
-import React, {Component} from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, {useState, useEffect} from 'react';
 import styled from 'styled-components/native';
 import {Alert, Keyboard, StatusBar} from 'react-native';
 
@@ -13,75 +14,67 @@ const Page = styled.SafeAreaView`
   flex: 1;
 `;
 
-export default class Main extends Component {
-  constructor(props) {
-    super(props);
+export default function GS() {
+  const [items, setItems] = useState([]);
+  const [query, setQuery] = useState({
+    page: 1,
+    type: 'ONE_TO_ONE',
+    keyword: '',
+  });
 
-    this.state = {
-      items: [],
-      page: 1,
-      type: 'ONE_TO_ONE',
-      keyword: '',
-    };
-  }
+  useEffect(() => {
+    requestItems();
+  }, [query]);
 
-  componentDidMount() {
-    const {page, type, keyword} = this.state;
-    this.requestItems(page, type, keyword, false);
-  }
-
-  requestItems = async (pageNum, type, keyword, more) => {
+  async function requestItems() {
     try {
-      const json = await requestGSEvent(pageNum, type, keyword);
-      const items = parseGSJSON(json);
-      if (items.length === 0) {
+      const json = await requestGSEvent(query);
+      const newItems = parseGSJSON(json);
+      if (newItems.length === 0) {
         throw new Error('상품이 더 이상 존재하지 않습니다.');
       }
 
-      if (more) {
-        this.setState({items: this.state.items.concat(items)});
+      if (query.page > 1) {
+        setItems([...items, ...newItems]);
       } else {
-        this.setState({items});
+        setItems(newItems);
       }
     } catch (error) {
       Alert.alert('', error.message, [{text: '확인'}]);
     }
-  };
-
-  render() {
-    const {items, type} = this.state;
-
-    return (
-      <Page>
-        <StatusBar barStyle="default" />
-        <BackButton />
-        <StoreItems items={items} more={this.more} />
-        <GSMenu type={type} select={this.selectType} />
-        <GSSearch onChangeKeyword={this.onChangeKeyword} search={this.search} />
-      </Page>
-    );
   }
 
-  selectType = item => {
-    const {keyword} = this.state;
-    this.requestItems(1, item.code, keyword, false);
-    this.setState({items: [], page: 1, type: item.code});
-  };
+  function requestMore() {
+    setQuery({
+      ...query,
+      page: query.page + 1,
+    });
+  }
 
-  more = () => {
-    const {page, type, keyword} = this.state;
-    const nextPage = page + 1;
-    this.requestItems(nextPage, type, keyword, true);
-    this.setState({page: nextPage});
-  };
+  function selectType(code) {
+    setQuery({
+      ...query,
+      page: 1,
+      type: code,
+    });
+  }
 
-  onChangeKeyword = keyword => {
-    this.setState({keyword});
-  };
-
-  search = () => {
-    const {type, keyword} = this.state;
+  function search(keyword) {
     Keyboard.dismiss();
-    this.requestItems(1, type, keyword, false);
-  };
+    setQuery({
+      ...query,
+      page: 1,
+      keyword,
+    });
+  }
+
+  return (
+    <Page>
+      <StatusBar barStyle="default" />
+      <BackButton />
+      <StoreItems items={items} more={requestMore} />
+      <GSMenu type={query.type} select={selectType} />
+      <GSSearch search={search} />
+    </Page>
+  );
 }

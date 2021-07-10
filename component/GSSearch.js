@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components/native';
 
 const Wrap = styled.View`
@@ -30,14 +30,17 @@ const Text = styled.Text`
   color: #ffffff;
 `;
 
-export default function GSSearch(props) {
+export default function GSSearch({search}) {
+  const [keyword, setKeyword] = useState('');
+
   return (
     <Wrap>
       <Input
-        onChangeText={props.onChangeKeyword}
+        value={keyword}
+        onChangeText={text => setKeyword(text)}
         placeholder="상품명으로 검색"
       />
-      <Button onPress={props.search}>
+      <Button onPress={() => search(keyword)}>
         <Text>찾기</Text>
       </Button>
     </Wrap>

@@ -5,7 +5,7 @@ const URL_STORE =
 const URL_GS = 'http://gs25.gsretail.com/gscvs/ko/products/event-goods-search';
 const Display = 20;
 
-export async function requestStoreEvent(page, store, category, type) {
+export async function requestStoreEvent({page, store, category, type}) {
   const param = `&start=${page}&display=${Display}&u1=${store}&u2=${category}&u3=${type}&u4=&u5=&u6=&u9=page`;
   const response = await fetch(URL_STORE + param, {
     method: 'GET',
@@ -39,8 +39,8 @@ export function parseStoreHTML(html, eventType) {
   });
 }
 
-export async function requestGSEvent(pageNum, type, keyword) {
-  let urlParam = `?pageNum=${pageNum}&pageSize=${25}&parameterList=${type}`;
+export async function requestGSEvent({page, type, keyword}) {
+  let urlParam = `?pageNum=${page}&pageSize=${25}&parameterList=${type}`;
   if (keyword !== '') {
     urlParam += `&s
     earchType=${keyword}&searchWord=${keyword}`;
