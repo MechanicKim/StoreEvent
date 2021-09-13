@@ -135,8 +135,8 @@ android {
         applicationId "com.dailyevent"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 18
-        versionName "18.0"
+        versionCode 21
+        versionName "21.0"
     }
     splits {
         abi {

@@ -18,6 +18,8 @@ const images = [
   require('../image/coupon2.jpg'),
   require('../image/coupon3.jpg'),
   require('../image/coupon4.jpg'),
+  require('../image/coupon5.jpg'),
+  require('../image/coupon6.jpg'),
 ];
 
 export default function StarCoupons({toggle}) {

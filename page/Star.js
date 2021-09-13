@@ -14,7 +14,7 @@ const Page = styled.SafeAreaView`
   background-color: #ffffff;
 `;
 
-const couponMonth = 6;
+const couponMonth = 9;
 const month = new Date().getMonth() + 1;
 
 export default function Star() {
